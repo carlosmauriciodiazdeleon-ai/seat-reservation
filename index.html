@@ -53,7 +53,28 @@ body {
   padding: 12px 20px;
   font-size: 16px;
 }
+button:disabled {
+  background: #cccccc;
+  color: #666;
+  cursor: not-allowed;
+}
 
+.spinner {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ddd;
+  border-top: 3px solid #333;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 /* ===== BANNER ===== */
 .banner {
   width: 100%;
@@ -308,7 +329,7 @@ button {
 </div>
 
 <div class="total">Total Amount: $<span id="total">0</span></div>
-<button type="button" onclick="submitForm()">Submit</button>
+<button id="submitBtn" type="button" onclick="submitForm()">Submit</button>
 
 </div>
 
@@ -366,5 +387,6 @@ function submitForm(){
 
 </body>
 </html>
+
 
 
