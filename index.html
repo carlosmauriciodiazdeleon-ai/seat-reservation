@@ -72,10 +72,20 @@ label {
   display: block;
   margin-top: 12px;
 }
+/* Inputs & selects – default */
 input, select {
-  width: 100%;
+  background-color: #f5f5f5;      /* gris claro */
+  border: 1px solid #ccc;
+  border-radius: 4px;
   padding: 8px;
-  margin-top: 5px;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+/* When user taps or clicks */
+input:focus, select:focus {
+  background-color: #ffffff;      /* blanco al escribir */
+  border-color: #007bff;
+  outline: none;
 }
 table input {
   width: 95%;
@@ -307,6 +317,7 @@ function submitForm() {
 
 </body>
 </html>
+
 
 
 
