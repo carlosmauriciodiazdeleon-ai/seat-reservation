@@ -10,37 +10,28 @@
 body {
   font-family: Arial, sans-serif;
   background: #f2f2f2;
-  padding: 20px;
+  padding: 16px;
   font-size: 16px;
 }
 
-/* ===== GOOGLE FORM STYLE WRAPPER ===== */
+/* ===== GOOGLE FORM WIDTH ===== */
 .form-wrapper {
   max-width: 480px;
   margin: 0 auto;
 }
-.intro-text {
-  background: #ffffff;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-  line-height: 1.6;
-  text-align: justify;
-  text-justify: inter-word;
-}
+
 /* ===== MODAL ===== */
 .modal {
   display: none;
   position: fixed;
-  z-index: 9999;
   inset: 0;
   background: rgba(0,0,0,0.6);
+  z-index: 9999;
 }
 .modal-content {
   background: #fff;
   max-width: 420px;
-  margin: 20% auto;
+  margin: 25% auto;
   padding: 20px;
   border-radius: 10px;
   text-align: center;
@@ -50,90 +41,64 @@ body {
 }
 .modal-content button {
   margin-top: 15px;
-  padding: 12px 20px;
+  padding: 12px;
+  width: 100%;
   font-size: 16px;
 }
-button:disabled {
-  background: #cccccc;
-  color: #666;
-  cursor: not-allowed;
-}
 
-.spinner {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  border: 3px solid #ddd;
-  border-top: 3px solid #333;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  vertical-align: middle;
-  margin-right: 8px;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
 /* ===== BANNER ===== */
 .banner {
-  width: 100%;
-  height: 260px;
+  height: 220px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 25px;
   background: #fff;
+  margin-bottom: 20px;
 }
 .banner img {
   max-height: 100%;
   max-width: 100%;
-  width: auto;
-  height: auto;
-  display: block;
 }
 
 /* ===== SECTIONS ===== */
 .section {
-  background: #ffffff;
+  background: #fff;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 25px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  margin-bottom: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0,.1);
 }
 .section-title {
   font-size: 18px;
-  margin-bottom: 15px;
   border-bottom: 2px solid #ddd;
-  padding-bottom: 5px;
+  padding-bottom: 6px;
+  margin-bottom: 14px;
 }
 
-/* ===== TEXT ===== */
 h1 {
-  font-size: 22px;
   text-align: center;
-}
-label {
-  font-weight: bold;
-  display: block;
-  margin-top: 12px;
-  font-size: 15px;
+  font-size: 22px;
 }
 
 /* ===== INPUTS ===== */
+label {
+  font-weight: bold;
+  margin-top: 12px;
+  display: block;
+}
+
 input, select {
   width: 100%;
-  background-color: #f5f5f5;
+  background: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 4px;
-  padding: 12px 14px;
+  padding: 14px;
   font-size: 16px;
   min-height: 44px;
-  box-sizing: border-box;
 }
 input:focus, select:focus {
-  background-color: #fff;
-  border-color: #007bff;
+  background: #fff;
+  border-color: #1a73e8;
   outline: none;
 }
 
@@ -149,36 +114,46 @@ th, td {
 }
 th:nth-child(1), td:nth-child(1) { width: 70%; }
 th:nth-child(2), td:nth-child(2) { width: 30%; }
-table input {
-  width: 100%;
-  font-size: 16px;
-  min-height: 40px;
-}
 
 /* ===== TOTAL ===== */
 .total {
   font-size: 22px;
   font-weight: bold;
   text-align: right;
-  margin-top: 20px;
 }
 
 /* ===== BUTTON ===== */
 button {
+  width: 100%;
   padding: 16px;
   font-size: 16px;
-  width: 100%;
   cursor: pointer;
+}
+button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+/* ===== SPINNER ===== */
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 3px solid #ddd;
+  border-top: 3px solid #333;
+  border-radius: 50%;
+  display: inline-block;
+  animation: spin 1s linear infinite;
+  margin-right: 8px;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 /* ===== MOBILE BOOST ===== */
 @media (max-width: 480px) {
-  body { padding: 10px; font-size: 18px; }
+  body { font-size: 18px; }
   h1 { font-size: 24px; }
-  .section-title { font-size: 20px; }
-  label { font-size: 16px; }
   input, select { font-size: 18px; min-height: 48px; }
-  .total { font-size: 24px; }
   button { font-size: 18px; }
 }
 </style>
@@ -187,7 +162,7 @@ button {
 <body>
 <div class="form-wrapper">
 
-<!-- MODAL -->
+<!-- ERROR MODAL -->
 <div id="errorModal" class="modal">
   <div class="modal-content">
     <h3>Error</h3>
@@ -201,82 +176,6 @@ button {
   <img src="betrachellarchwood_logo.png" alt="Banner">
 </div>
 
-<!-- INTRO LETTER 
-<div class="intro-text">
-  <h2>Dear Larchwood members,</h2>
-
-  <p>
-    As we look ahead to the opening of our new shul, the seating committee is beginning an initial, non-binding process to gauge interest in permanent seating..
-  </p>
-
-  <p>
-    We are beginning the initial process of exploring permanent seating for our membership.
-    This initiative follows thoughtful discussion and planning by the seating committee,
-    which spent considerable time reviewing best practices from other community shuls.
-  </p>
-
-  <p>
-    At this stage, <strong>no seats are being sold</strong>.
-    The purpose of this communication is simply to gauge interest from our community
-    so we can plan responsibly and thoughtfully.
-  </p>
-
-  <p>
-    Formal bylaws, policies, and conditions related to permanent seating will be introduced
-    at a later stage, prior to any seats being offered for purchase.
-  </p>
-
-  <h3>Preliminary Pricing Guidelines</h3>
-  <p>The following pricing is shared for planning purposes only:</p>
-
-  <strong>Men’s Section (Main Shul)</strong>
-  <ul>
-    <li>Row 1: $12,000</li>
-    <li>Row 2: $10,000</li>
-    <li>Remaining Rows: $7,200</li>
-  </ul>
-
-  <strong>Ladies’ Section</strong>
-  <ul>
-    <li>Row 1: $7,200</li>
-    <li>Remaining Rows: $5,200</li>
-  </ul>
-
-  <strong>Men’s Section (Midrash)</strong>
-  <ul>
-    <li>Row 1: $7,200</li>
-    <li>All Other Rows: $5,200</li>
-  </ul>
-
-  <h3>Payment Plan</h3>
-  <p>
-    Permanent seats must be paid in full within 24 months.
-    Additionally, there will be an annual maintenance fee of $500 per seat.
-  </p>
-
-  <h3>Previous Seat Holders</h3>
-  <p>
-    Members who previously purchased seats will receive three (3) years of credit
-    toward their annual maintenance fees, representing a $1,500 savings per seat.
-  </p>
-
-  <h3>Interest Survey</h3>
-  <p>
-    Completion of this form is not binding and does not constitute a commitment
-    or guarantee of availability. It is intended solely to help us plan appropriately.
-  </p>
-
-  <p>
-    We are deeply grateful for the continued support and engagement of our kehilla
-    and look forward to building the next chapter of Larchwood together.
-  </p>
-
-  <p>
-    <strong>Warm regards,</strong><br>
-    The Larchwood Shul Seating Committee
-  </p>
-</div>-->
-  
 <h1>Seat Reservation Form</h1>
 
 <!-- PERSONAL INFO -->
@@ -291,111 +190,125 @@ button {
 <!-- MEN MAIN SHUL -->
 <div class="section">
   <div class="section-title">Men’s Seats – Main Shul</div>
+
   <label>Row 1 ($12,000)</label>
   <select onchange="updateSeats('MS_R1',12000,this.value)"></select>
-  <table id="tbl_MS_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+  <table id="tbl_MS_R1" style="display:none">
+    <thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody>
+  </table>
 
   <label>Row 2 ($10,000)</label>
   <select onchange="updateSeats('MS_R2',10000,this.value)"></select>
-  <table id="tbl_MS_R2" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+  <table id="tbl_MS_R2" style="display:none">
+    <thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody>
+  </table>
 
   <label>Remaining Rows ($7,200)</label>
   <select onchange="updateSeats('MS_RR',7200,this.value)"></select>
-  <table id="tbl_MS_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+  <table id="tbl_MS_RR" style="display:none">
+    <thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody>
+  </table>
 </div>
 
-<!-- LADIES MAIN SHUL -->
-<div class="section">
-  <div class="section-title">Ladies’ Seats – Main Shul</div>
-  <label>Row 1 ($7,200)</label>
-  <select onchange="updateSeats('LS_R1',7200,this.value)"></select>
-  <table id="tbl_LS_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
-
-  <label>Remaining Rows ($5,200)</label>
-  <select onchange="updateSeats('LS_RR',5200,this.value)"></select>
-  <table id="tbl_LS_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
-</div>
-
-<!-- MEN MIDRASH -->
-<div class="section">
-  <div class="section-title">Men’s Seats – Midrash</div>
-  <label>Row 1 ($7,200)</label>
-  <select onchange="updateSeats('MM_R1',7200,this.value)"></select>
-  <table id="tbl_MM_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
-
-  <label>All Other Rows ($5,200)</label>
-  <select onchange="updateSeats('MM_RR',5200,this.value)"></select>
-  <table id="tbl_MM_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
-</div>
-
+<!-- TOTAL -->
 <div class="total">Total Amount: $<span id="total">0</span></div>
-<button id="submitBtn" type="button" onclick="submitForm()">Submit</button>
+
+<button id="submitBtn" onclick="submitForm()">Submit</button>
 
 </div>
 
 <script>
-const SCRIPT_URL="https://script.google.com/macros/s/AKfycbzV0B9OfBUTkflVu1o2jVCsW7sVnXK1ufoPaTl1AO-IwnRBCKdpcDwkdQvALRPyhYBsDg/exec";
-let userId=localStorage.getItem("FORM_USER_ID")||crypto.randomUUID();
-localStorage.setItem("FORM_USER_ID",userId);
-let seatData={},total=0;
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzV0B9OfBUTkflVu1o2jVCsW7sVnXK1ufoPaTl1AO-IwnRBCKdpcDwkdQvALRPyhYBsDg/exec";
 
-document.querySelectorAll("select").forEach(s=>{for(let i=0;i<=20;i++)s.add(new Option(i,i));});
+let userId = localStorage.getItem("FORM_USER_ID") || crypto.randomUUID();
+localStorage.setItem("FORM_USER_ID", userId);
 
-function showError(m){modalMessage.innerText=m;errorModal.style.display="block";}
-function closeModal(){errorModal.style.display="none";}
+let seatData = {};
+let total = 0;
+let isSubmitting = false;
 
-function updateSeats(k,p,q){
-  q=+q;const t=document.getElementById("tbl_"+k),b=t.querySelector("tbody");
-  b.innerHTML="";seatData[k]=[];
-  if(!q){t.style.display="none";recalcTotal();return;}
-  t.style.display="table";
-  for(let i=0;i<q;i++){
-    b.innerHTML+=`<tr><td><input></td><td><input type="number" min="0"></td></tr>`;
-    seatData[k].push({price:p});
-  }
-  recalcTotal();
+/* Populate dropdowns */
+document.querySelectorAll("select").forEach(sel => {
+  for (let i = 0; i <= 20; i++) sel.add(new Option(i, i));
+});
+
+function showError(msg) {
+  modalMessage.innerText = msg;
+  errorModal.style.display = "block";
 }
-function recalcTotal(){total=0;Object.values(seatData).forEach(a=>a.forEach(s=>total+=s.price));document.getElementById("total").innerText=total.toLocaleString();}
-function collectSeats(){
-  const o={};for(let k in seatData){
-    o[k]=[];document.querySelectorAll(`#tbl_${k} tbody tr`).forEach((r,i)=>{
-      const x=r.querySelectorAll("input");
-      o[k].push({name:x[0].value,age:x[1].value,price:seatData[k][i].price});
-    });
-  }return o;
+function closeModal() {
+  errorModal.style.display = "none";
 }
-function submitForm(){
-  if (isSubmitting) return; // ⛔ prevent double click
 
-  try{
-    if(!firstName.value.trim()) return showError("First Name is required");
-    if(!lastName.value.trim()) return showError("Last Name is required");
-    if(!email.value.match(/.+@.+\..+/)) return showError("Valid Email required");
-    if(!cellphone.value.trim()) return showError("Cellphone is required");
+function updateSeats(key, price, qty) {
+  qty = +qty;
+  const table = document.getElementById("tbl_" + key);
+  const tbody = table.querySelector("tbody");
+  tbody.innerHTML = "";
+  seatData[key] = [];
 
-    for(let k in seatData){
-      document.querySelectorAll(`#tbl_${k} tbody tr`).forEach(r=>{
-        const i=r.querySelectorAll("input");
-        if(!i[0].value.trim() || !i[1].value.trim()){
-          throw showError("All seat Name and Age fields are required");
-        }
-      });
-    }
-  } catch {
+  if (!qty) {
+    table.style.display = "none";
+    recalcTotal();
     return;
   }
 
-  // ✅ lock submission
-  isSubmitting = true;
+  table.style.display = "table";
 
-  const btn = document.getElementById("submitBtn");
-  btn.disabled = true;
-  btn.innerHTML = `<span class="spinner"></span>Submitting...`;
+  for (let i = 0; i < qty; i++) {
+    tbody.innerHTML += `<tr>
+      <td><input></td>
+      <td><input type="number" min="0"></td>
+    </tr>`;
+    seatData[key].push({ price });
+  }
+  recalcTotal();
+}
+
+function recalcTotal() {
+  total = 0;
+  Object.values(seatData).forEach(a => a.forEach(s => total += s.price));
+  document.getElementById("total").innerText = total.toLocaleString();
+}
+
+function collectSeats() {
+  const out = {};
+  for (let k in seatData) {
+    out[k] = [];
+    document.querySelectorAll(`#tbl_${k} tbody tr`).forEach((r,i)=>{
+      const x = r.querySelectorAll("input");
+      out[k].push({ name:x[0].value, age:x[1].value, price:seatData[k][i].price });
+    });
+  }
+  return out;
+}
+
+function submitForm() {
+  if (isSubmitting) return;
+
+  try {
+    if (!firstName.value.trim()) return showError("First Name is required");
+    if (!lastName.value.trim()) return showError("Last Name is required");
+    if (!email.value.match(/.+@.+\..+/)) return showError("Valid Email required");
+    if (!cellphone.value.trim()) return showError("Cellphone is required");
+
+    for (let k in seatData) {
+      document.querySelectorAll(`#tbl_${k} tbody tr`).forEach(r=>{
+        const i=r.querySelectorAll("input");
+        if (!i[0].value.trim() || !i[1].value.trim())
+          throw showError("All seat Name and Age fields are required");
+      });
+    }
+  } catch { return; }
+
+  isSubmitting = true;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `<span class="spinner"></span>Submitting...`;
 
   fetch(SCRIPT_URL,{
     method:"POST",
     mode:"no-cors",
-    headers:{"Content-Type":"application/json"},
+    headers:{ "Content-Type":"application/json" },
     body:JSON.stringify({
       userId,
       submissionId: crypto.randomUUID(),
@@ -406,23 +319,12 @@ function submitForm(){
       totalAmount: total,
       seats: collectSeats()
     })
-  })
-  .then(()=>{
-    btn.innerHTML = "Submitted ✔";
+  }).then(()=>{
+    submitBtn.innerHTML="Submitted ✔";
     alert("Form submitted successfully. Thank you!");
-  })
-  .catch(()=>{
-    showError("Submission failed. Please try again.");
-    btn.disabled = false;
-    btn.innerHTML = "Submit";
-    isSubmitting = false;
   });
 }
 </script>
 
 </body>
 </html>
-
-
-
-
