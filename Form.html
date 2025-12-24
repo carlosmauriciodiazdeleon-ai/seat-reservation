@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Seat Reservation</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+  padding: 20px;
+}
+
+/* ===== MODAL ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.6);
+}
+.modal-content {
+  background: #fff;
+  max-width: 420px;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+.modal-content h3 {
+  color: #c00;
+}
+.modal-content button {
+  margin-top: 15px;
+  padding: 10px 20px;
+}
+
+/* ===== FORM ===== */
+.banner img {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin-bottom: 25px;
+}
+.section {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 25px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.section-title {
+  font-size: 20px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #ddd;
+  padding-bottom: 5px;
+}
+label {
+  font-weight: bold;
+  display: block;
+  margin-top: 12px;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+table input {
+  width: 95%;
+  padding: 6px;
+  box-sizing: border-box;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+th, td {
+  border: 1px solid #ccc;
+  padding: 6px;
+}
+th:nth-child(1), td:nth-child(1) { width: 70%; }
+th:nth-child(2), td:nth-child(2) { width: 30%; }
+.total {
+  font-size: 22px;
+  font-weight: bold;
+  text-align: right;
+  margin-top: 20px;
+}
+button {
+  padding: 14px;
+  font-size: 16px;
+  width: 100%;
+  cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- MODAL -->
+<div id="errorModal" class="modal">
+  <div class="modal-content">
+    <h3>Error</h3>
+    <div id="modalMessage"></div>
+    <button onclick="closeModal()">OK</button>
+  </div>
+</div>
+
+<!-- BANNER -->
+<div class="banner">
+  <img src="https://www.rayze.it/images/db/betrachellarchwood_logo.png">
+</div>
+
+<h1>Seat Reservation Form</h1>
+
+<!-- PERSONAL INFO -->
+<div class="section">
+  <div class="section-title">Personal Information</div>
+
+  <label>First Name</label>
+  <input id="firstName">
+
+  <label>Last Name</label>
+  <input id="lastName">
+
+  <label>Email</label>
+  <input id="email" type="email">
+
+  <label>Cellphone</label>
+  <input id="cellphone">
+</div>
+
+<!-- MEN MAIN SHUL -->
+<div class="section">
+  <div class="section-title">Men’s Seats – Main Shul</div>
+
+  <label>Row 1 ($12,000)</label>
+  <select onchange="updateSeats('MS_R1',12000,this.value)"></select>
+  <table id="tbl_MS_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+
+  <label>Row 2 ($10,000)</label>
+  <select onchange="updateSeats('MS_R2',10000,this.value)"></select>
+  <table id="tbl_MS_R2" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+
+  <label>Remaining Rows ($7,200)</label>
+  <select onchange="updateSeats('MS_RR',7200,this.value)"></select>
+  <table id="tbl_MS_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+</div>
+
+<!-- LADIES MAIN SHUL -->
+<div class="section">
+  <div class="section-title">Ladies’ Seats – Main Shul</div>
+
+  <label>Row 1 ($7,200)</label>
+  <select onchange="updateSeats('LS_R1',7200,this.value)"></select>
+  <table id="tbl_LS_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+
+  <label>Remaining Rows ($5,200)</label>
+  <select onchange="updateSeats('LS_RR',5200,this.value)"></select>
+  <table id="tbl_LS_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+</div>
+
+<!-- MEN MIDRASH -->
+<div class="section">
+  <div class="section-title">Men’s Seats – Midrash</div>
+
+  <label>Row 1 ($7,200)</label>
+  <select onchange="updateSeats('MM_R1',7200,this.value)"></select>
+  <table id="tbl_MM_R1" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+
+  <label>All Other Rows ($5,200)</label>
+  <select onchange="updateSeats('MM_RR',5200,this.value)"></select>
+  <table id="tbl_MM_RR" style="display:none"><thead><tr><th>Name</th><th>Age</th></tr></thead><tbody></tbody></table>
+</div>
+
+<div class="total">
+  Total Amount: $<span id="total">0</span>
+</div>
+
+<button type="button" onclick="submitForm()">Submit</button>
+
+<script>
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzV0B9OfBUTkflVu1o2jVCsW7sVnXK1ufoPaTl1AO-IwnRBCKdpcDwkdQvALRPyhYBsDg/exec";
+
+let userId = localStorage.getItem("FORM_USER_ID");
+if (!userId) {
+  userId = crypto.randomUUID();
+  localStorage.setItem("FORM_USER_ID", userId);
+}
+
+let seatData = {};
+let total = 0;
+
+/* Populate dropdowns */
+document.querySelectorAll("select").forEach(sel => {
+  for (let i = 0; i <= 20; i++) sel.add(new Option(i, i));
+});
+
+/* Modal helpers */
+function showError(msg) {
+  document.getElementById("modalMessage").innerText = msg;
+  document.getElementById("errorModal").style.display = "block";
+}
+function closeModal() {
+  document.getElementById("errorModal").style.display = "none";
+}
+
+function updateSeats(key, price, qty) {
+  qty = Number(qty);
+  const table = document.getElementById("tbl_" + key);
+  const tbody = table.querySelector("tbody");
+  tbody.innerHTML = "";
+  seatData[key] = [];
+
+  if (qty === 0) {
+    table.style.display = "none";
+    recalcTotal();
+    return;
+  }
+
+  table.style.display = "table";
+
+  for (let i = 0; i < qty; i++) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `<td><input></td><td><input type="number" min="0" max="120"></td>`;
+    tbody.appendChild(tr);
+    seatData[key].push({ price });
+  }
+  recalcTotal();
+}
+
+function recalcTotal() {
+  total = 0;
+  Object.values(seatData).forEach(a => a.forEach(s => total += s.price));
+  document.getElementById("total").innerText = total.toLocaleString();
+}
+
+function validateForm() {
+  if (!firstName.value.trim()) return showError("First Name is required"), false;
+  if (!lastName.value.trim()) return showError("Last Name is required"), false;
+  if (!email.value.match(/.+@.+\..+/)) return showError("Valid Email is required"), false;
+  if (!cellphone.value.trim()) return showError("Cellphone is required"), false;
+
+  for (let k in seatData) {
+    document.querySelectorAll(`#tbl_${k} tbody tr`).forEach(r => {
+      const i = r.querySelectorAll("input");
+      if (!i[0].value.trim() || !i[1].value.trim()) {
+        showError("All seat Name and Age fields must be filled");
+        throw "stop";
+      }
+    });
+  }
+  return true;
+}
+
+function collectSeats() {
+  const o = {};
+  for (let k in seatData) {
+    o[k] = [];
+    document.querySelectorAll(`#tbl_${k} tbody tr`).forEach((r,i) => {
+      const inp = r.querySelectorAll("input");
+      o[k].push({
+        name: inp[0].value,
+        age: inp[1].value,
+        price: seatData[k][i].price
+      });
+    });
+  }
+  return o;
+}
+
+function submitForm() {
+  try {
+    if (!validateForm()) return;
+  } catch { return; }
+
+  fetch(SCRIPT_URL, {
+    method:"POST",
+    mode:"no-cors",
+    headers:{ "Content-Type":"application/json" },
+    body:JSON.stringify({
+      userId,
+      submissionId: crypto.randomUUID(),
+      firstName:firstName.value,
+      lastName:lastName.value,
+      email:email.value,
+      cellphone:cellphone.value,
+      totalAmount: total,
+      seats: collectSeats()
+    })
+  }).then(()=>alert("Form submitted successfully"));
+}
+</script>
+
+</body>
+</html>
