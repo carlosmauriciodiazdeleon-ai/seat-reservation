@@ -37,13 +37,22 @@ body {
 }
 
 /* ===== FORM ===== */
-.banner img {
+.banner {
   width: 100%;
-  height: auto;
+  max-height: 280px;          /* ← AJUSTA AQUÍ la altura máxima */
+  display: flex;
+  align-items: center;        /* centra vertical */
+  justify-content: center;    /* centra horizontal */
+  overflow: hidden;           /* evita desbordes */
+  margin-bottom: 25px;
+}
+
+.banner img {
+  max-height: 100%;
   max-width: 100%;
-  object-fit: contain;
-  display: block;
-  margin: 0 auto 25px auto;
+  width: auto;
+  height: auto;
+  object-fit: contain;        /* nunca recorta */
 }
 .section {
   background: #ffffff;
@@ -298,5 +307,6 @@ function submitForm() {
 
 </body>
 </html>
+
 
 
